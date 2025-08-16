@@ -1,0 +1,91 @@
+[build-system]
+requires = ["hatchling>=1.25"]
+build-backend = "hatchling.build"
+
+[project]
+name = "ualf"
+description = "Parser and client utilities for the Universal ASCII Lightning Format (UALF)"
+readme = "README.md"
+requires-python = ">=3.9"
+# Keep runtime deps minimal; pandas is optional via extra
+dependencies = [
+  "requests>=2.28",
+  "python-dotenv>=1.0",
+]
+dynamic = ["version"]
+license = { file = "LICENSE" }
+authors = [
+  { name = "colaflaske" }
+]
+keywords = ["ualf", "lightning", "weather", "frost", "met.no", "parser"]
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3 :: Only",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "License :: OSI Approved :: MIT License",
+  "Operating System :: OS Independent",
+  "Typing :: Typed",
+]
+
+[project.optional-dependencies]
+# Install pandas if you want DataFrame outputs
+pandas = ["pandas>=1.5"]
+dev = [
+  "ruff>=0.4",
+  "mypy>=1.10",
+  "build>=1.2",
+  "twine>=5.0",
+  "types-requests",
+  "types-python-dotenv",
+  "pandas-stubs",
+]
+
+[project.urls]
+Homepage = "https://github.com/colaflaske/ualf"
+Issues = "https://github.com/colaflaske/ualf/issues"
+
+[tool.hatch.version]
+path = "ualf/__init__.py"
+
+[tool.hatch.build]
+include = [
+  "ualf/**",
+  "README.md",
+  "LICENSE",
+]
+
+[project.scripts]
+ualf-cli = "ualf.cli:main"
+
+[tool.ruff]
+target-version = "py39"
+line-length = 100
+extend-exclude = ["tests/__pycache__", "*.ipynb", "**/*.ipynb"]
+
+[tool.ruff.lint]
+select = [
+  "E", "F", "W",  # pycodestyle/pyflakes
+  "I",              # isort
+]
+ignore = [
+]
+
+[tool.ruff.lint.isort]
+known-first-party = ["ualf"]
+
+[tool.mypy]
+python_version = "3.9"
+strict_optional = true
+warn_unused_ignores = true
+warn_redundant_casts = true
+warn_return_any = true
+no_implicit_optional = true
+disallow_untyped_defs = true
+disallow_incomplete_defs = true
+check_untyped_defs = true
+ignore_missing_imports = true  # optional deps like pandas/dotenv/requests
+implicit_reexport = true
