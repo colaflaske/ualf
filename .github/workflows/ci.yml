@@ -23,7 +23,7 @@ jobs:
           pip install -e .[pandas]
       - name: Lint
         run: |
-          pip install ruff mypy types-requests types-python-dotenv
+          pip install ruff mypy types-requests
           ruff check .
           mypy ualf
       - name: Run tests
