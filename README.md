@@ -81,3 +81,4 @@ MIT
 
 ## Credits
 Data from The Norwegian Meteorological Institute
+[API usage](https://frost.met.no/howto.html)
