@@ -75,7 +75,8 @@ def fetch_lightning_ualf(
     sess = session or requests.Session()
     resp = sess.get(url, auth=(api_client_id, client_secret))
     resp.raise_for_status()
-    return resp.text
+    # Explicitly cast to str to satisfy mypy
+    return str(resp.text)
 
 
 def fetch_lightning_events(
